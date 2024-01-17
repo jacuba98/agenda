@@ -1,13 +1,19 @@
 <x-app-layout>
-
-
     <div
         class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
         @if (Route::has('login'))
             <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                 @auth
-                    <a href="{{ url('/dashboard') }}"
-                        class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                    <!--a href="{{ url('/dashboard') }}"
+                                                                                                                                                                                                                                                class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a-->
+                    <!-- Authentication -->
+                    <form method="POST" action="{{ route('logout') }}" style="display: inline-block;">
+                        @csrf
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();"
+                            class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                            {{ __('Log Out') }}
+                        </a>
+                    </form>
                 @else
                     <a href="{{ route('login') }}"
                         class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log
@@ -21,7 +27,7 @@
                 <img src="{{ asset('images/gp-Logo.png') }}" alt="Logo de grupo piñero" width="130" height="130">
             </div>
 
-            <div class="mt-16 flex justify-center ">
+            <div class="mt-16 d-flex flex justify-center ">
 
                 <div class="container-input">
                     <form action="{{ route('search') }}" method="post">
@@ -36,16 +42,60 @@
                         </svg>
                     </form>
                 </div>
+
+                @auth
+                    <a href="#"
+                        class="btn-ico font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                        data-toggle="modal" data-target="#myModal" data-placement="top" title="Agregar Nuevo Registro">
+                        <i class='bx bx-user-plus' style="font-size: 2.7em;"></i>
+                    </a>
+                @endauth
+
+
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Mi Formulario</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="nombre">Nombre:</label>
+                                        <input type="text" class="form-control" id="nombre"
+                                            placeholder="Ingrese su nombre">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Correo electrónico:</label>
+                                        <input type="email" class="form-control" id="email"
+                                            placeholder="Ingrese su correo electrónico">
+                                    </div>
+                                    <!-- Agrega más campos según tus necesidades -->
+
+                                    <!-- Botón de envío del formulario -->
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
 
             <br>
 
-            <div class="card-datatable table-responsive pt-0">
+            <div class="card-datatable
+                    table-responsive pt-0">
                 <div class="text-nowrap" id="searchResults">
                     @if ($agenda->isEmpty())
                         <h5 class="card-header">No se encontro registro de empleados.</h5>
                     @else
-                        <table id="empleados" class="modal">
+                        <table id="agenda" class="modal">
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
@@ -56,7 +106,7 @@
                                     <th>Email</th>
                                 </tr>
                             </thead>
-                            <tbody id="employeeList">
+                            <tbody id="agendaList">
                                 <!-- Aquí se mostrarán los empleados -->
                                 @foreach ($agenda as $agenda)
                                     <tr>
@@ -102,9 +152,29 @@
     @section('js')
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <script>
+            document.addEventListener('keydown', function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                }
+            });
             $(document).ready(function() {
+                // Ocultar la tabla al inicializar
+                $('#agenda').hide();
                 $('#searchInput').on('input', function() {
                     var query = $(this).val();
+
+                    // Deshabilitar el envío del formulario al presionar "Enter"
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        return;
+                    }
+
+                    // Verificar si el campo de búsqueda está en blanco
+                    if (query.trim() === '') {
+                        // Si está en blanco, ocultar la tabla y salir de la función
+                        $('#agenda').hide();
+                        return;
+                    }
 
                     $.ajax({
                         url: "{{ route('search') }}",
@@ -115,10 +185,41 @@
                         },
                         success: function(response) {
                             $('#searchResults').html(response);
+                            // Mostrar la tabla después de realizar una búsqueda
+                            $('#miTabla').show();
                         }
                     });
                 });
             });
+        </script>
+
+        <!-- JavaScript para mostrar y ocultar el modal -->
+        <script>
+            // Obtener el modal
+            var modal = document.getElementById('myModal');
+
+            // Obtener el botón que abre el modal
+            var btn = document.getElementById("myBtn");
+
+            // Obtener el elemento <span> que cierra el modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // Cuando el usuario hace clic en el botón, abrir el modal
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
+
+            // Cuando el usuario hace clic en <span> (x), cerrar el modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // Cuando el usuario hace clic en cualquier lugar fuera del modal, cerrarlo
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
         </script>
     @endsection
 </x-app-layout>
