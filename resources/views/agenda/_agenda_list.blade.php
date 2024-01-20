@@ -21,12 +21,12 @@
                     <!-- Aquí se mostrarán los empleados -->
                     @foreach ($agenda as $agenda)
                         <tr>
-                            <td>{{ $agenda->Nombre }}</td>
-                            <td>{{ $agenda->Puesto }}</td>
-                            <td>{{ $agenda->Departamento }}</td>
-                            <td>{{ $agenda->Hotel }}</td>
-                            <td>{{ $agenda->Extension }}</td>
-                            <td>{{ $agenda->Email }}</td>
+                            <td>{{ $agenda->name }}</td>
+                            <td>{{ $agenda->job }}</td>
+                            <td>{{ $agenda->departament }}</td>
+                            <td>{{ $agenda->hotel }}</td>
+                            <td>{{ $agenda->extension }}</td>
+                            <td>{{ $agenda->email }}</td>
                             @auth
                                 <td>...</td>
                             @endauth

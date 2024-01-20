@@ -5,7 +5,7 @@
             <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                 @auth
                     <!--a href="{{ url('/dashboard') }}"
-                                                                                                                                                                                                                                                                                                                                        class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a-->
+                                                                                                                                                                                                                                                                                                                                                class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a-->
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}" style="display: inline-block;">
                         @csrf
@@ -33,7 +33,7 @@
                     <form action="{{ route('search') }}" method="post">
                         @csrf
                         <input id="searchInput" type="text" placeholder="Nombre, ext o departamento" name="query"
-                            class="input autofocus">
+                            class="input-search autofocus">
                         <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -78,12 +78,12 @@
                                 <!-- Aquí se mostrarán los empleados -->
                                 @foreach ($agenda as $agenda)
                                     <tr>
-                                        <td>{{ $agenda->Nombre }}</td>
-                                        <td>{{ $agenda->Puesto }}</td>
-                                        <td>{{ $agenda->Departamento }}</td>
-                                        <td>{{ $agenda->Hotel }}</td>
-                                        <td>{{ $agenda->Extension }}</td>
-                                        <td>{{ $agenda->Email }}</td>
+                                        <td>{{ $agenda->name }}</td>
+                                        <td>{{ $agenda->job }}</td>
+                                        <td>{{ $agenda->departament }}</td>
+                                        <td>{{ $agenda->hotel }}</td>
+                                        <td>{{ $agenda->extension }}</td>
+                                        <td>{{ $agenda->email }}</td>
                                         @auth
                                             <td>...</td>
                                         @endauth

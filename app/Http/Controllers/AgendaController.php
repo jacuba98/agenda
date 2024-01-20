@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agenda;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Unique;
 
 class AgendaController extends Controller
 {
@@ -16,8 +17,12 @@ class AgendaController extends Controller
     public function search(Request $request)
     {
         $query = $request->get('query');
-        $agenda = Agenda::where('Nombre', 'like', '%' . $query . '%')
-            ->orWhere('Puesto', 'like', '%' . $query . '%')
+        $agenda = Agenda::where('name', 'like', '%' . $query . '%')
+            ->orWhere('job', 'like', '%' . $query . '%')
+            ->orWhere('departament', 'like', '%' . $query . '%')
+            ->orWhere('hotel', 'like', '%' . $query . '%')
+            ->orWhere('extension', 'like', '%' . $query . '%')
+            ->orWhere('email', 'like', '%' . $query . '%')
             ->get();
 
         return view('agenda._agenda_list', compact('agenda'));
@@ -35,7 +40,23 @@ class AgendaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'job' => 'required',
+            'departament' => 'required',
+            'hotel' => 'required',
+            'extension' => 'required', 'unique', 'interger',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Agenda::class],
+        ]);
+        //dd($data);
+
+        $registro = Agenda::create($data);
+
+        /*toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Empleado {$registro->name} creado.");*/
+
+        return redirect()->route('index');
     }
 
     /**

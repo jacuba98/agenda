@@ -9,7 +9,7 @@
     position: relative;
 }
 
-.input {
+.input-search {
     width: 300px;
     padding: 10px 0px 10px 40px;
     border-radius: 9999px;
@@ -20,7 +20,7 @@
     align-content: center
 }
 
-.input-modal {
+.input {
     width: 300px;
     padding: 10px 0px 10px 40px;
     border-radius: 10px;
@@ -31,49 +31,6 @@
     align-content: center
 }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Estilos para el modal */
-.modal {
-    display: none;
-    /* Ocultar el modal por defecto */
-    position: fixed;
-    /* Fijar la posición del modal */
-    z-index: 1;
-    /* Establecer la posición del modal */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    /* Habilitar el desplazamiento */
-    background-color: rgba(0, 0, 0, 0.4);
-    /* Fondo oscuro semi-transparente */
-}
-
-/* Estilos para el contenido del modal */
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    /* Centrar el contenido del modal */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-/* Estilos para el botón de cerrar */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
 .container-input svg {
     position: absolute;
     top: 50%;
@@ -81,10 +38,6 @@
     transform: translate(0, -50%);
 }
 
-.input:focus {
-    opacity: 1;
-    width: 300px;
-}
 
 /* ! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com */
 *,
