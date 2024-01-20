@@ -18,6 +18,8 @@ use App\Models\Agenda;
 
 Route::resource('/', AgendaController::class);
 
+//CRUD
+Route::resource('agenda', AgendaController::class); // Rutas Empleados
 // Ruta para la búsqueda
 Route::post('search', [AgendaController::class, 'search'])->name('search'); //buscador de agenda
 

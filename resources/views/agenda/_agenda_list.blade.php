@@ -3,7 +3,7 @@
         @if ($agenda->isEmpty())
             <h5 class="card-header">No se encontro registro de empleados.</h5>
         @else
-            <table id="agenda" class="modal">
+            <table id="agenda">
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -12,6 +12,9 @@
                         <th>Hotel</th>
                         <th>Extencion</th>
                         <th>Email</th>
+                        @auth
+                            <th>Acciones</th>
+                        @endauth
                     </tr>
                 </thead>
                 <tbody id="agendaList">
@@ -24,6 +27,9 @@
                             <td>{{ $agenda->Hotel }}</td>
                             <td>{{ $agenda->Extension }}</td>
                             <td>{{ $agenda->Email }}</td>
+                            @auth
+                                <td>...</td>
+                            @endauth
                         </tr>
                     @endforeach
                 </tbody>

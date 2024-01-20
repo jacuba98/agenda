@@ -5,7 +5,7 @@
             <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                 @auth
                     <!--a href="{{ url('/dashboard') }}"
-                                                                                                                                                                                                                                                class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a-->
+                                                                                                                                                                                                                                                                                                                                        class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a-->
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}" style="display: inline-block;">
                         @csrf
@@ -44,47 +44,12 @@
                 </div>
 
                 @auth
-                    <a href="#"
+                    <a href="{{ route('agenda.create') }}"
                         class="btn-ico font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                         data-toggle="modal" data-target="#myModal" data-placement="top" title="Agregar Nuevo Registro">
                         <i class='bx bx-user-plus' style="font-size: 2.7em;"></i>
                     </a>
                 @endauth
-
-
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Mi Formulario</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="form-group">
-                                        <label for="nombre">Nombre:</label>
-                                        <input type="text" class="form-control" id="nombre"
-                                            placeholder="Ingrese su nombre">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Correo electrónico:</label>
-                                        <input type="email" class="form-control" id="email"
-                                            placeholder="Ingrese su correo electrónico">
-                                    </div>
-                                    <!-- Agrega más campos según tus necesidades -->
-
-                                    <!-- Botón de envío del formulario -->
-                                    <button type="submit" class="btn btn-primary">Enviar</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
 
             <br>
@@ -95,7 +60,7 @@
                     @if ($agenda->isEmpty())
                         <h5 class="card-header">No se encontro registro de empleados.</h5>
                     @else
-                        <table id="agenda" class="modal">
+                        <table id="agenda">
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
@@ -104,6 +69,9 @@
                                     <th>Hotel</th>
                                     <th>Extencion</th>
                                     <th>Email</th>
+                                    @auth
+                                        <th>Acciones</th>
+                                    @endauth
                                 </tr>
                             </thead>
                             <tbody id="agendaList">
@@ -116,6 +84,9 @@
                                         <td>{{ $agenda->Hotel }}</td>
                                         <td>{{ $agenda->Extension }}</td>
                                         <td>{{ $agenda->Email }}</td>
+                                        @auth
+                                            <td>...</td>
+                                        @endauth
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -136,13 +107,14 @@
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                             </svg>
-                            Outisoft.inc
+                            Grupo Piñero
                         </a>
                     </div>
                 </div>
 
                 <div class="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0">
-                    Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+                    <!--Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})-->
+                    <a>{{ config('app.name', 'Agenda') }}</a>
                 </div>
             </div>
         </div>
@@ -163,12 +135,6 @@
                 $('#searchInput').on('input', function() {
                     var query = $(this).val();
 
-                    // Deshabilitar el envío del formulario al presionar "Enter"
-                    if (event.key === 'Enter') {
-                        event.preventDefault();
-                        return;
-                    }
-
                     // Verificar si el campo de búsqueda está en blanco
                     if (query.trim() === '') {
                         // Si está en blanco, ocultar la tabla y salir de la función
@@ -186,40 +152,11 @@
                         success: function(response) {
                             $('#searchResults').html(response);
                             // Mostrar la tabla después de realizar una búsqueda
-                            $('#miTabla').show();
+                            $('#agenda').show();
                         }
                     });
                 });
             });
-        </script>
-
-        <!-- JavaScript para mostrar y ocultar el modal -->
-        <script>
-            // Obtener el modal
-            var modal = document.getElementById('myModal');
-
-            // Obtener el botón que abre el modal
-            var btn = document.getElementById("myBtn");
-
-            // Obtener el elemento <span> que cierra el modal
-            var span = document.getElementsByClassName("close")[0];
-
-            // Cuando el usuario hace clic en el botón, abrir el modal
-            btn.onclick = function() {
-                modal.style.display = "block";
-            }
-
-            // Cuando el usuario hace clic en <span> (x), cerrar el modal
-            span.onclick = function() {
-                modal.style.display = "none";
-            }
-
-            // Cuando el usuario hace clic en cualquier lugar fuera del modal, cerrarlo
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
         </script>
     @endsection
 </x-app-layout>
