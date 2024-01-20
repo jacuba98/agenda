@@ -2,16 +2,20 @@
     <div
         class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
         @if (Route::has('login'))
-            <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+            <div class="sm:fixed sm:top-0 p-6 text-right z-10">
                 @auth
-                    <!--a href="{{ url('/dashboard') }}"
-                                                                                                                                                                                                                                                                                                                                                            class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a-->
+                    <!--a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a-->
+                    <a href="#"
+                        class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Users
+                        °
+                    </a>
+                    -
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}" style="display: inline-block;">
                         @csrf
                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();"
-                            class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                            {{ __('Log Out') }}
+                            class="sm:right-0 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                            {{ __('°    Log Out') }}
                         </a>
                     </form>
                 @else
@@ -90,11 +94,11 @@
                                                         class="bx bx-edit me-1"></i>Editar</a>
                                             </td>
                                             <td>
-                                                <form action="#" method="POST">
+                                                <form action="{{ route('agenda.destroy', $agenda->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="dropdown-item btn-danger"
-                                                        onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
+                                                        onclick="return confirm('¿Estás seguro de eliminar este contacto?')"><i
                                                             class="bx bx-trash me-1"></i>Eliminar</button>
                                                 </form>
                                             </td>

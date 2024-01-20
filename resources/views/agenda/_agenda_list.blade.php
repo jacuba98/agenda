@@ -34,11 +34,11 @@
                                             class="bx bx-edit me-1"></i>Editar</a>
                                 </td>
                                 <td>
-                                    <form action="#" method="POST">
+                                    <form action="{{ route('agenda.destroy', $agenda->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="dropdown-item btn-danger"
-                                            onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
+                                            onclick="return confirm('¿Estás seguro de eliminar este contacto?')"><i
                                                 class="bx bx-trash me-1"></i>Eliminar</button>
                                     </form>
                                 </td>

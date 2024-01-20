@@ -53,9 +53,7 @@ class AgendaController extends Controller
 
         $registro = Agenda::create($data);
 
-        /*toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Empleado {$registro->name} creado.");*/
+        toastr()->addSuccess("{$registro->name} CREADO.");
 
         return redirect()->route('index');
     }
@@ -88,17 +86,19 @@ class AgendaController extends Controller
         $registro = Agenda::findOrFail($id);
         $registro->update($data);
 
-        /*toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Empleado {$registro->name} actualizado.");*/
+        toastr()->addSuccess("{$registro->name} ACTUALIZADO.");
         return redirect()->route('index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Agenda $agenda)
+    public function destroy($id)
     {
-        //
+        $registro = Agenda::findOrFail($id);
+        $registro->delete();
+
+        toastr()->addSuccess("{$registro->name} ELIMINADO.");
+        return redirect()->route('index');
     }
 }
