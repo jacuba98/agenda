@@ -55,7 +55,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="dropdown-item btn-danger"
-                                                        onclick="return confirm('¿Estás seguro de eliminar este contacto?')"><i
+                                                        onclick="return confirm('¿Estás seguro de eliminar a {{ $user->name }}?')"><i
                                                             class="bx bx-trash me-1"></i>Eliminar</button>
                                                 </form>
                                             </td>

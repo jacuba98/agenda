@@ -52,6 +52,13 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $registro = User::findOrFail($id);
+        $registro->delete();
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Usuario {$registro->name} eliminado.");
+
+        return redirect()->route('user.index');
     }
 }
