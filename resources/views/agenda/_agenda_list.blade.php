@@ -14,6 +14,7 @@
                         <th>Email</th>
                         @auth
                             <th>Acciones</th>
+                            <th></th>
                         @endauth
                     </tr>
                 </thead>
@@ -28,7 +29,19 @@
                             <td>{{ $agenda->extension }}</td>
                             <td>{{ $agenda->email }}</td>
                             @auth
-                                <td>...</td>
+                                <td>
+                                    <a href="{{ route('agenda.edit', $agenda->id) }}"><i
+                                            class="bx bx-edit me-1"></i>Editar</a>
+                                </td>
+                                <td>
+                                    <form action="#" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="dropdown-item btn-danger"
+                                            onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
+                                                class="bx bx-trash me-1"></i>Eliminar</button>
+                                    </form>
+                                </td>
                             @endauth
                         </tr>
                     @endforeach

@@ -32,7 +32,8 @@ class AgendaController extends Controller
      */
     public function create()
     {
-        return view('agenda.create');
+        $agenda = Agenda::get();
+        return view('agenda.create', compact('agenda'));
     }
 
     /**
@@ -60,27 +61,37 @@ class AgendaController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Agenda $agenda)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Agenda $agenda)
+    public function edit($id)
     {
-        //
+        $agenda = Agenda::findOrFail($id);
+
+        //dd($agenda);
+        return view('agenda.edit', compact('agenda'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Agenda $agenda)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'job' => 'required',
+            'departament' => 'required',
+            'hotel' => 'required',
+            'extension' => 'required', 'unique', 'interger',
+            'email' => 'required|email',
+        ]);
+
+        $registro = Agenda::findOrFail($id);
+        $registro->update($data);
+
+        /*toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Empleado {$registro->name} actualizado.");*/
+        return redirect()->route('index');
     }
 
     /**
