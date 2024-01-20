@@ -2,24 +2,16 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Agenda;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::resource('/', AgendaController::class);
 
 //CRUD
-Route::resource('agenda', AgendaController::class)->middleware(['auth', 'verified']); // Rutas Empleados
+Route::resource('agenda', AgendaController::class)->middleware(['auth', 'verified']); // Rutas Agenda
+Route::resource('user', UserController::class)->middleware(['auth', 'verified']); // Rutas Users
 // Ruta para la búsqueda
 Route::post('search', [AgendaController::class, 'search'])->name('search'); //buscador de agenda
 
