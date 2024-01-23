@@ -25,7 +25,7 @@
                             <td>{{ $agenda->name }}</td>
                             <td>{{ $agenda->job }}</td>
                             <td>{{ $agenda->departament }}</td>
-                            <td>{{ $agenda->hotel }}</td>
+                            <td>{{ $agenda->hotel->name }}</td>
                             <td>{{ $agenda->extension }}</td>
                             <td>{{ $agenda->email }}</td>
                             @auth

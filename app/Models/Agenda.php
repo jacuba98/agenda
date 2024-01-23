@@ -13,10 +13,15 @@ class Agenda extends Model
         'name',
         'job',
         'departament',
-        'hotel',
+        'hotel_id',
         'extension',
         'email'
     ];
+
+    public function hotel()
+    {
+        return $this->belongsTo(Hotel::class, 'hotel_id');
+    }
 
     protected static function boot() //guardar en mayusculas
     {

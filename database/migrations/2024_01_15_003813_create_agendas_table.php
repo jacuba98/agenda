@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('job')->nullable();
             $table->string('departament')->nullable();
-            $table->string('hotel')->nullable();
+            $table->foreignId('hotel_id')->references('id')->on('hotels')->cascadeOnDelete();
             $table->string('extension')->nullable();
             $table->string('email')->nullable();
             $table->timestamps();

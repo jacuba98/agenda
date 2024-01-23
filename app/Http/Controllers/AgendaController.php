@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agenda;
+use App\Models\Hotel;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Unique;
 
@@ -10,7 +11,7 @@ class AgendaController extends Controller
 {
     public function index()
     {
-        $agenda = Agenda::all();
+        $agenda = Agenda::with('hotel')->get();
         return view('index', compact('agenda'));
     }
 
@@ -20,7 +21,6 @@ class AgendaController extends Controller
         $agenda = Agenda::where('name', 'like', '%' . $query . '%')
             ->orWhere('job', 'like', '%' . $query . '%')
             ->orWhere('departament', 'like', '%' . $query . '%')
-            ->orWhere('hotel', 'like', '%' . $query . '%')
             ->orWhere('extension', 'like', '%' . $query . '%')
             ->orWhere('email', 'like', '%' . $query . '%')
             ->get();
@@ -32,8 +32,9 @@ class AgendaController extends Controller
      */
     public function create()
     {
+        $hotels = Hotel::get();
         $agenda = Agenda::get();
-        return view('agenda.create', compact('agenda'));
+        return view('agenda.create', compact('agenda', 'hotels'));
     }
 
     /**
@@ -41,15 +42,15 @@ class AgendaController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $data = $request->validate([
             'name' => 'required',
             'job' => 'required',
             'departament' => 'required',
-            'hotel' => 'required',
+            'hotel_id' => 'required|exists:hotels,id',
             'extension' => 'required', 'unique', 'interger',
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Agenda::class],
         ]);
-        //dd($data);
 
         $registro = Agenda::create($data);
 
@@ -64,9 +65,9 @@ class AgendaController extends Controller
     public function edit($id)
     {
         $agenda = Agenda::findOrFail($id);
-
+        $hotels = Hotel::all(); // Obtén la lista de hoteles
         //dd($agenda);
-        return view('agenda.edit', compact('agenda'));
+        return view('agenda.edit', compact('agenda', 'hotels'));
     }
 
     /**
@@ -78,7 +79,7 @@ class AgendaController extends Controller
             'name' => 'required',
             'job' => 'required',
             'departament' => 'required',
-            'hotel' => 'required',
+            'hotel_id' => 'required|exists:hotels,id',
             'extension' => 'required', 'unique', 'interger',
             'email' => 'required|email',
         ]);

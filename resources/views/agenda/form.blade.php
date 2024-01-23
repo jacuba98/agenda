@@ -23,11 +23,15 @@
 </div>
 
 <!-- Hotel -->
-<div class="input_container">
+<div class="input_container"">
     <x-input-label class="input_label" for="hotel" :value="__('Hotel')" />
-    <x-text-input id="hotel" class="input_form" type="text" name="hotel" :value="old('hotel', $agenda->hotel)" required
-        autocomplete="hotel" />
-    <x-input-error :messages="$errors->get('hotel')" class="mt-2" />
+    <select class="input_form" id="hotel_id" name="hotel_id" aria-label="Default select example">
+        @foreach ($hotels as $hotel)
+            <option value="{{ $hotel->id }}" {{ $agenda->hotel_id == $hotel->id ? 'selected' : '' }}>
+                {{ $hotel->name }}</option>
+        @endforeach
+    </select>
+    <x-input-error :messages="$errors->get('hotel_id')" class="mt-2" />
 </div>
 
 <!-- Extension -->

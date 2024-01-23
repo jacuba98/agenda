@@ -25,9 +25,12 @@
 
         <!-- Hotel -->
         <div class="input_container">
-            <x-input-label class="input_label" for="hotel" :value="__('Hotel')" />
-            <input placeholder="Tulum" title="Inpit title" name="hotel" type="text" class="input_form"
-                id="hotel" required>
+            <x-input-label class="input_label" for="hotel_id" :value="__('Hotel')" />
+            <select name="hotel_id" id="hotel_id" class="input_form" required>
+                @foreach ($hotels as $hotel)
+                    <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                @endforeach
+            </select>
         </div>
 
 
