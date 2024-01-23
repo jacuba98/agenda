@@ -1,66 +1,53 @@
 <x-guest-layout>
-    <form action="{{ route('agenda.store') }}" method="POST">
+    <form class="form_container" action="{{ route('agenda.store') }}" method="POST">
         @csrf
 
         <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name"
-                class="border-gray-300 hover:border-pinero-200 focus:border-pinero-300 focus:ring-pinero-300 rounded-md shadow-sm block mt-1 w-full"
-                type="text" name="name" :value="old('name')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        <div class="input_container">
+            <x-input-label class="input_label" for="name" :value="__('Name')" />
+            <input placeholder="Example name" title="Inpit title" name="name" type="text" class="input_form"
+                id="name" required autofocus>
         </div>
 
         <!-- Job -->
-        <div class="mt-3">
-            <x-input-label for="job" :value="__('Job')" />
-            <x-text-input id="job"
-                class="border-gray-300 hover:border-pinero-200 focus:border-pinero-300 focus:ring-pinero-300 rounded-md shadow-sm block mt-1 w-full"
-                type="text" name="job" :value="old('job')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('job')" class="mt-2" />
+        <div class="input_container">
+            <x-input-label class="input_label" for="job" :value="__('Job')" />
+            <input placeholder="Suport" title="Inpit title" name="job" type="text" class="input_form"
+                id="job" required>
         </div>
 
         <!-- Departament -->
-        <div class="mt-3">
-            <x-input-label for="departament" :value="__('Departament')" />
-            <x-text-input id="departament"
-                class="border-gray-300 hover:border-pinero-200 focus:border-pinero-300 focus:ring-pinero-300 rounded-md shadow-sm block mt-1 w-full"
-                type="text" name="departament" :value="old('departament')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('departament')" class="mt-2" />
+        <div class="input_container">
+            <x-input-label class="input_label" for="departament" :value="__('Departament')" />
+            <input placeholder="Sistemas" title="Inpit title" name="departament" type="text" class="input_form"
+                id="departament" required>
         </div>
 
         <!-- Hotel -->
-        <div class="mt-3">
-            <x-input-label for="hotel" :value="__('Hotel')" />
-            <x-text-input id="hotel"
-                class="border-gray-300 hover:border-pinero-200 focus:border-pinero-300 focus:ring-pinero-300 rounded-md shadow-sm block mt-1 w-full"
-                type="text" name="hotel" :value="old('hotel')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('hotel')" class="mt-2" />
+        <div class="input_container">
+            <x-input-label class="input_label" for="hotel" :value="__('Hotel')" />
+            <input placeholder="Tulum" title="Inpit title" name="hotel" type="text" class="input_form"
+                id="hotel" required>
         </div>
+
 
         <!-- Extension -->
-        <div class="mt-3">
-            <x-input-label for="extension" :value="__('Extension')" />
-            <x-text-input id="extension"
-                class="border-gray-300 hover:border-pinero-200 focus:border-pinero-300 focus:ring-pinero-300 rounded-md shadow-sm block mt-1 w-full"
-                type="text" name="extension" :value="old('extension')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('extension')" class="mt-2" />
+        <div class="input_container">
+            <x-input-label class="input_label" for="extension" :value="__('Extension')" />
+            <input placeholder="28028" title="Inpit title" name="extension" type="text" class="input_form"
+                id="extension" required>
         </div>
+
 
         <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email"
-                class="border-gray-300 hover:border-pinero-200 focus:border-pinero-300 focus:ring-pinero-300 rounded-md shadow-sm block mt-1 w-full"
-                type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div class="input_container">
+            <x-input-label class="input_label" for="email" :value="__('Email')" />
+            <input placeholder="example@email.com" title="Inpit title" name="email" type="email" class="input_form"
+                id="email" required>
         </div>
 
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button class="ms-4 bg-pinero-400 hover:bg-pinero-500 focus:bg-pinero-300">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
+        <button class="sign-in_btn">
+            {{ __('Register') }}
+        </button>
     </form>
 </x-guest-layout>
