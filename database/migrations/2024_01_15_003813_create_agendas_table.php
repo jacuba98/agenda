@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('agendas', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('job');
-            $table->string('departament');
-            $table->string('hotel');
-            $table->integer('extension')->unique();
-            $table->string('email')->unique();
+            $table->string('name')->nullable();
+            $table->string('job')->nullable();
+            $table->string('departament')->nullable();
+            $table->string('hotel')->nullable();
+            $table->string('extension')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }
