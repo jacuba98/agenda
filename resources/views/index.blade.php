@@ -1,30 +1,7 @@
+
 <x-app-layout>
     <div
-        class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-        @if (Route::has('login'))
-            <div class="sm:fixed sm:top-0 p-6 text-right z-10">
-                @auth
-                    <!--a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a-->
-                    <a href="{{ route('user.index') }}"
-                        class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Users
-                        °
-                    </a>
-                    -
-                    <!-- Authentication -->
-                    <form method="POST" action="{{ route('logout') }}" style="display: inline-block;">
-                        @csrf
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();"
-                            class="sm:right-0 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                            {{ __('°    Log Out') }}
-                        </a>
-                    </form>
-                @else
-                    <a href="{{ route('login') }}"
-                        class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log
-                        in</a>
-                @endauth
-            </div>
-        @endif
+        class="sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
 
         <div class="max-w-5xl mx-auto p-6 lg:p-8">
             <div class="flex justify-center">
@@ -32,12 +9,12 @@
             </div>
 
             <div class="mt-16 d-flex flex justify-center ">
-
-                <div class="container-input">
-                    <form action="{{ route('search') }}" method="post">
+                
+               
+                    <form action="{{ route('search') }}" method="post" class="container-input">
                         @csrf
                         <input id="searchInput" type="text" placeholder="Nombre, ext o departamento" name="query"
-                            class="input-search autofocus">
+                            class="input-search" autofocus>
                         <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -45,7 +22,6 @@
                                 fill-rule="evenodd"></path>
                         </svg>
                     </form>
-                </div>
 
                 @auth
                     <a href="{{ route('agenda.create') }}"
